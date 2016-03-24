@@ -14,11 +14,11 @@ FRAME_PER_ACTION = 1
 GAMMA = 0.99 # decay rate of past observations
 OBSERVE = 100. # timesteps to observe before training
 EXPLORE = 200000. # frames over which to anneal epsilon
-FINAL_EPSILON = 0.01 # final value of epsilon
-INITIAL_EPSILON = 0.5 # starting value of epsilon
+FINAL_EPSILON = 0.001 # final value of epsilon
+INITIAL_EPSILON = 0.01 # starting value of epsilon
 REPLAY_MEMORY = 50000 # number of previous transitions to remember
 BATCH_SIZE = 32 # size of minibatch
-UPDATE_TIME = 1000
+UPDATE_TIME = 100
 
 class BrainDQN:
 
@@ -141,6 +141,18 @@ class BrainDQN:
 		if self.timeStep > OBSERVE:
 			# Train the network
 			self.trainQNetwork()
+
+		# print info
+		state = ""
+		if self.timeStep <= OBSERVE:
+			state = "observe"
+		elif self.timeStep > OBSERVE and self.timeStep <= OBSERVE + EXPLORE:
+			state = "explore"
+		else:
+			state = "train"
+
+		print "TIMESTEP", self.timeStep, "/ STATE", state, \
+            "/ EPSILON", self.epsilon
 
 		self.currentState = newState
 		self.timeStep += 1
