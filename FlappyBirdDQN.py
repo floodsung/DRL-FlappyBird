@@ -8,7 +8,7 @@ import cv2
 import sys
 sys.path.append("game/")
 import wrapped_flappy_bird as game
-from BrainDQN import BrainDQN
+from BrainDQN_Nature import BrainDQN
 import numpy as np
 
 # preprocess raw image to 80*80 gray image
