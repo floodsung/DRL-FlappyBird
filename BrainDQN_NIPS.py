@@ -113,7 +113,8 @@ class BrainDQN:
 
 		
 	def setPerception(self,nextObservation,action,reward,terminal):
-		newState = np.append(nextObservation,self.currentState[:,:,1:],axis = 2)
+		#newState = np.append(nextObservation,self.currentState[:,:,1:],axis = 2)
+		newState = np.append(self.currentState[:,:,1:],nextObservation,axis = 2)
 		self.replayMemory.append((self.currentState,action,reward,newState,terminal))
 		if len(self.replayMemory) > REPLAY_MEMORY:
 			self.replayMemory.popleft()
