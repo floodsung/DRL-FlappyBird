@@ -20,6 +20,14 @@ REPLAY_MEMORY = 50000 # number of previous transitions to remember
 BATCH_SIZE = 32 # size of minibatch
 UPDATE_TIME = 100
 
+try:
+    tf.mul
+except:
+    # For new version of tensorflow
+    # tf.mul has been removed in new version of tensorflow
+    # Using tf.multiply to replace tf.mul
+    tf.mul = tf.multiply
+
 class BrainDQN:
 
 	def __init__(self,actions):
@@ -46,9 +54,9 @@ class BrainDQN:
 		checkpoint = tf.train.get_checkpoint_state("saved_networks")
 		if checkpoint and checkpoint.model_checkpoint_path:
 				self.saver.restore(self.session, checkpoint.model_checkpoint_path)
-				print "Successfully loaded:", checkpoint.model_checkpoint_path
+				print ("Successfully loaded:", checkpoint.model_checkpoint_path)
 		else:
-				print "Could not find old network weights"
+				print ("Could not find old network weights")
 
 
 	def createQNetwork(self):
@@ -152,8 +160,8 @@ class BrainDQN:
 		else:
 			state = "train"
 
-		print "TIMESTEP", self.timeStep, "/ STATE", state, \
-            "/ EPSILON", self.epsilon
+		print ("TIMESTEP", self.timeStep, "/ STATE", state, \
+            "/ EPSILON", self.epsilon)
 
 		self.currentState = newState
 		self.timeStep += 1

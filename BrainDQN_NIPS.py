@@ -79,9 +79,9 @@ class BrainDQN:
 		checkpoint = tf.train.get_checkpoint_state("saved_networks")
 		if checkpoint and checkpoint.model_checkpoint_path:
 				self.saver.restore(self.session, checkpoint.model_checkpoint_path)
-				print "Successfully loaded:", checkpoint.model_checkpoint_path
+				print ("Successfully loaded:", checkpoint.model_checkpoint_path)
 		else:
-				print "Could not find old network weights"
+				print ("Could not find old network weights")
 
 	def trainQNetwork(self):
 		# Step 1: obtain random minibatch from replay memory
